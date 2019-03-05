@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
@@ -7,13 +8,31 @@ class PostsIndex extends Component {
         this.props.fetchPosts();
     }
 
+    renderPosts(){
+        // Loop over posts object
+       return _.map(this.props.posts, post => {
+           return <li className="list-group-item" key={ post.id }>{ post.title }</li>
+       });
+    }
+
     render(){
+        // Component renders twice, first without any posts, then after it mounts posts get updated and component rerenders
+        console.log(this.props.posts)
         return (
-            <div>Posts Index Page</div>
+            <div>
+                <h3>Posts</h3>
+                <ul className="list-group">
+                { this.renderPosts() }
+                </ul>
+            </div>
         );
     }
 }
 
+function mapStateToProps(state){
+    return { posts: state.posts }
+}
+
 // Shortcut to wire up action creator inside of component; this.props.fetchPosts
-// null for mapStateToProps; pass in action creator itself inside of an object
-export default connect(null, { fetchPosts })(PostsIndex);
+// Pass in action creator itself inside of an object
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
