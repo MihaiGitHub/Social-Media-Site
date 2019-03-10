@@ -4,11 +4,12 @@ import { Field, reduxForm } from 'redux-form';
 class PostsNew extends Component{
     // field contains event handlers that need to be wired up to the JSX so that <Field is wired up
     // to the <input
-    renderTitleField(field){
+    renderField(field){
         // field.input contains event handlers like onChange, onBlur, value of input etc
         return (
-            <div>
-                <input type="text"
+            <div className="form-group">
+                <label>{field.label}</label>
+                <input type="text" className="form-control"
                     /* field.input instead of this
                         onChange={field.input.onChange}
                         onFocus={field.input.onFocus}
@@ -23,10 +24,22 @@ class PostsNew extends Component{
         return(
             <form>
                 <Field
+                    label="Title"
                 // name property specifies what piece of state this field produces
                     name="title"
                     // component property takes in a function that will be used to display this field
-                    component={this.renderTitleField}
+                    component={this.renderField}
+                />
+                <Field
+                    label="Tags"
+                    name="tags"
+                    // no () required since we are passing a reference to a function
+                    component={this.renderField}
+                />
+                <Field
+                    label="Post Content"
+                    name="content"
+                    component={this.renderField}
                 />
             </form>
         );
