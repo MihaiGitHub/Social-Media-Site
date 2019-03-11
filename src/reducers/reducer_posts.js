@@ -1,8 +1,11 @@
 import _ from 'lodash';
-import { FETCH_POSTS } from '../actions';
+import { FETCH_POSTS, FETCH_POST } from '../actions';
 
 export default function(state = {}, action){
     switch(action.type){
+        case FETCH_POST:
+// Return an object with the old state plus a new key of action.payload.data.id and value of action.payload.data
+            return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_POSTS:
 // Turn array of objects into an object itself
 // Take data array and use "id" as the property to pull off each object to use as the key on the resulting object
