@@ -16,9 +16,11 @@ class PostsNew extends Component{
                         onBlur={field.input.onBlur}
                         */
                     {...field.input} />
-                    {field.meta.error}
+                    
+                    {field.meta.touched ? field.meta.error : ''}
             </div>
         );
+        // field.meta.touched = user has focused on the field then focused away
     }
 
     onSubmit(values){
