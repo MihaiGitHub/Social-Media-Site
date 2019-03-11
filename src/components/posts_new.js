@@ -32,10 +32,13 @@ class PostsNew extends Component{
     }
 
     onSubmit(values){
-        console.log(values)
+        console.log('Form values: ', values)
 
-        // Call action creator to post to API
-        this.props.createPost(values);
+        // Call action creator to post to API and pass callback function
+        this.props.createPost(values, () => {
+            // Route is rendering PostsNew component so we have access to many props to help with navigation
+            this.props.history.push('/'); // String needs to match one of the routes
+        });
     }
 
     render(){
