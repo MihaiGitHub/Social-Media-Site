@@ -16,17 +16,27 @@ class PostsNew extends Component{
                         onBlur={field.input.onBlur}
                         */
                     {...field.input} />
+                    {field.meta.error}
             </div>
         );
     }
 
+    onSubmit(values){
+        console.log(values)
+    }
+
     render(){
+        // handleSubmit is a property passed to this component on behalf of redux form when
+        // redux form was wired at the bottom using export default reduxForm
+        const { handleSubmit } = this.props;
+
+// handleSubmit takes in the function defined above and passes to handleSubmit that runs reduxForm; if form is valid then call onSubmit
         return(
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
                     label="Title"
                 // name property specifies what piece of state this field produces
-                    name="title"
+                    name="title" // Is referenced in the validate function as values.title
                     // component property takes in a function that will be used to display this field
                     component={this.renderField}
                 />
@@ -41,6 +51,7 @@ class PostsNew extends Component{
                     name="content"
                     component={this.renderField}
                 />
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         );
     }
