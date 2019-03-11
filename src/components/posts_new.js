@@ -5,9 +5,13 @@ class PostsNew extends Component{
     // field contains event handlers that need to be wired up to the JSX so that <Field is wired up
     // to the <input
     renderField(field){
+        // Destructure, pull off meta from field then pull off touched and error from meta object
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+
         // field.input contains event handlers like onChange, onBlur, value of input etc
         return (
-            <div className="form-group">
+            <div className={className}>
                 <label>{field.label}</label>
                 <input type="text" className="form-control"
                     /* field.input instead of this
@@ -16,8 +20,9 @@ class PostsNew extends Component{
                         onBlur={field.input.onBlur}
                         */
                     {...field.input} />
-                    
-                    {field.meta.touched ? field.meta.error : ''}
+                    <div className="text-help">
+                        {touched ? error : ''}
+                    </div>
             </div>
         );
         // field.meta.touched = user has focused on the field then focused away
