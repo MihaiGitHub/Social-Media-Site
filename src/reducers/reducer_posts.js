@@ -1,8 +1,11 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 
 export default function(state = {}, action){
     switch(action.type){
+        case DELETE_POST:
+// If state object has a key of the post id, return a new object without that particular post id
+            return _.omit(state, action.payload);
         case FETCH_POST:
 // Return an object with the old state plus a new key of action.payload.data.id and value of action.payload.data
             return { ...state, [action.payload.data.id]: action.payload.data };
