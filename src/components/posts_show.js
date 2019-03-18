@@ -13,9 +13,18 @@ class PostsShow extends Component {
     }
 
     render(){
+        const { post } = this.props;
+
+        // At first render post is undefined so return loading div instead of regular return
+        if(!post){
+            return <div>Loading...</div>;
+        }
+
         return (
             <div>
-                Posts Show!
+                <h3>{post.title}</h3>
+                <h6>Categories: {post.categories}</h6>
+                <p>{post.content}</p>
             </div>
         );
     }
@@ -24,7 +33,7 @@ class PostsShow extends Component {
 // Destructure to get posts piece of state
 // ownProps - props object that is going to this component
 function mapStateToProps({ posts }, ownProps){
-    // return single post 
+    // return single post in component
     return { post: posts[ownProps.match.params.id] };
 }
 
